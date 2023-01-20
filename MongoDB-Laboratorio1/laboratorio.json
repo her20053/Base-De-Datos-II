@@ -1,0 +1,32 @@
+{
+    "Estudiante":"Jose Andres Hernandez Guerra",
+    "Carnet": "20053",
+    "Incisos realizados desde MongoDBCompass (por lo tanto no hay queries)":[
+        "Crear base de datos: restaurant",
+        "Importar colección de recetas",
+        "Importar colección de usuarios"
+    ],
+    "Laboratorio":{
+        "Consultar todas las recetas":"db.recipes.find({})",
+        "Consultar todos los usuarios":"db.users.find({})",
+        "Crear una receta":"db.recipes.insertOne({title:'Carbonara',desc:'Pasta carbonara',cook_time: 15})",
+        "Buscar la receta":"db.recipes.find({title:'Carbonara'})",
+        "Listar las recetas con su tiempo de cocción":"db.recipes.find({}, (cook_time:1))",
+        "Ordenar las recetas por tiempo de cocción":"db.recipes.find({}, {cook_time:1}).sort({cook_time:1})",
+        "Crear 3 nuevos usuarios":"db.users.insertMany([{firstName: 'Willy', lastName: 'Valle'},{firstName:'Roberto',lastName:'Mombiela'},{firstName:'Pablo',lastName:'Gonzalez'}])",
+        "Buscar la receta con mejor rating promedio":"db.recipes.find().sort({rating_avg: -1}).limit(1)",
+        "Buscar la receta con peor rating promedio":"db.recipes.find().sort({rating_avg: 1}).limit(1)",
+        "Asignarle la receta favorita a cada usuario":"",
+        "Agregar un rating más a una receta y actualizar el promedio":"",
+        "Modificar la lista de ingredientes de una receta":"db.recipes.updateOne({title:'Pancakes', 'ingredients.name':'milk'},{$set:{'ingredients.$.amount.quantity':1}})",
+        "Consultar los distintos nombres de usuario":"db.users.find({}, {firstName:1})",
+        "Buscar usuarios que tengan correo de gmail":"db.users.find({'email':{$regex: /@gmail.com$/}})",
+        "Agregar campo de actividad de los usuarios":"db.users.updateMany({}, {$set:{actividad: 'activo'}})",
+        "Buscar las recetas que tengan comentarios":"db.recipes.find({'comments':{$exists:true}})",
+        "Cambiar una unidad de medida de todas las recetas - lb a kg":"db.recipes.updateMany({'ingredients.amount.unit':'lbs'},{$set:{'ingredients.$.amount.unit':'kg'}})",
+        "Eliminar una receta":"db.recipes.deleteOne({title:'Tacos'})",
+        "Eliminar usuarios que estén inactivos":"db.users.deleteMany({actividad:'inactivo'})",
+        "Buscar las recetas que sean de postre":"db.recipes.find({type:'Dessert'})",
+        "Buscar las instrucciones de las recetas que sean fáciles de cocinar":"db.recipes.find({$expr:{$lt:[{$size:'$directions'},5]}},{title:1,directions:1, _id:0})"
+    }
+}
